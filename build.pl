@@ -10,6 +10,10 @@ sub k8s_install {
 
     common::dbgLog($verbose, "debug", "k8s_install");
 
+    #TODO: 
+    # 1. run curl.exe -LO "https://dl.k8s.io/release/v1.27.3/bin/windows/amd64/kubectl.exe"    
+    # 2. place kubectl.exe in place where it will be on path
+
 }
 
 sub help {
