@@ -10,13 +10,25 @@ sub k8s_install {
 
     common::dbgLog($verbose, "debug", "k8s_install");
 
-    #TODO: 
-    # 1. run curl.exe -LO "https://dl.k8s.io/release/v1.27.3/bin/windows/amd64/kubectl.exe"    
-    # 2. place kubectl.exe in place where it will be on path
+    if (!$ENV{'HOME'}) {
+        common::dbgLog($verbose, "error", "HOME env variable is not defined, quiting.");
+        return common::FAIL;
+    }
 
-    my @cmds = (
-        "curl.exe -LO \"https://dl.k8s.io/release/v1.27.3/bin/windows/amd64/kubectl.exe\""
-    );
+    my @cmds = ();
+
+    if (! -e 'kubectl.exe') {
+        push @cmds, "curl.exe -LO \"https://dl.k8s.io/release/v1.27.3/bin/windows/amd64/kubectl.exe\"";
+    } else {
+        common::dbgLog($verbose, "info", "kubetcl.exe already exists, nothing to do.")
+    }
+
+    my $k8sHome = $ENV{'HOME'} . '/.kube';
+    if (! -d $k8sHome) {
+        push @cmds, "mkdir $k8sHome";
+    } else {
+        common::dbgLog($verbose, "info", "$k8sHome already exists, nothing to do.");
+    }
 
     foreach (@cmds) {
         my $result = common::sshExecute($verbose, undef, undef, undef, $_);
