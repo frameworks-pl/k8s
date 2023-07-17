@@ -14,6 +14,20 @@ sub k8s_install {
     # 1. run curl.exe -LO "https://dl.k8s.io/release/v1.27.3/bin/windows/amd64/kubectl.exe"    
     # 2. place kubectl.exe in place where it will be on path
 
+    my @cmds = (
+        "curl.exe -LO \"https://dl.k8s.io/release/v1.27.3/bin/windows/amd64/kubectl.exe\""
+    );
+
+    foreach (@cmds) {
+        my $result = common::sshExecute($verbose, undef, undef, undef, $_);
+        if ($result != common::OK) {
+            common::dbgLog($verbose, "error", "Failed to execut $_");
+            return common::FAIL;
+        }
+    }
+
+    return common::OK;
+
 }
 
 sub help {
