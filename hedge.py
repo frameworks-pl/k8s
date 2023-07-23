@@ -17,7 +17,7 @@ class Hedge:
     def build(self, params):
         logging.debug("You are now in master file with instructions")
         filehedge = self.createHedgeObject('FileHedge')
-        filehedge.ensureFile('/hedge/etc/testplan/50-cloud-init.yaml', '/etc/testplan/50-cloud-init.yaml')
+        filehedge.ensureFile('/hedge/etc/netplan/50-cloud-init.yaml', '/etc/netplan/50-cloud-init.yaml')
         
         
         
