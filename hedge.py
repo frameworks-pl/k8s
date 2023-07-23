@@ -6,8 +6,6 @@ class Hedge:
 
     def __init__(self, repoRootPath):
         self.repoRootPath = repoRootPath
-        sys.path.insert(0, repoRootPath + '/src')
-        sys.path.insert(0, repoRootPath + '/src/lib')
         
     def createHedgeObject(self, className):
         module = importlib.import_module(className.lower())
