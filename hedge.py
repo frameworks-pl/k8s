@@ -1,5 +1,4 @@
 import logging
-from filehedge import FileHedge
 
 class Hedge:
 
