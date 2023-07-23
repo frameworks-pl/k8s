@@ -42,6 +42,11 @@ sub k8s_install {
 
 }
 
+
+sub network_update {
+
+}
+
 sub help {
     my ($targets) = @_;
     foreach my $key (sort keys %$targets) {
@@ -61,7 +66,11 @@ sub main {
         "k8s-install" => {
             "sub" => \&k8s_install,
             "description" => "Downloads and installs k8s tools"
-        }
+        },
+        "network-update" => {
+            "sub" => \&network_update,
+            "description" => "Makes sure all cluster nodes are in network"
+        }        
     );
 
     if ($help) {
