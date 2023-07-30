@@ -2,15 +2,21 @@ Vagrant.configure("2") do |config|
   config.vm.box = "k8s_master"
   config.vm.box = "ubuntu/focal64" 
   config.vm.provider "virtualbox" do |v|
-    v.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
+    v.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
+    v.customize ["modifyvm", :id, "--uartmode1", "file", File::NULL]
     v.gui = true
   end
   config.ssh.username = "vagrant"
+  config.ssh.password = "vagrant"
+  config.ssh.insert_key = false
+  
   config.vm.provision "file", source: "./master.pub", destination: "~/.ssh/authorized_keys"  
-  config.ssh.private_key_path = './master'
+  #config.ssh.private_key_path = './master'
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.network :public_network, ip: "192.168.100.180", netmask: "255.255.255.0", bridge: "Realtek 8821CE Wireless LAN 802.11ac PCI-E NIC"
   #config.vm.provision :shell, path: "provision.pl"
   
   config.vm.boot_timeout = 1000    
+  
+  
 end
