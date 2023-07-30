@@ -16,6 +16,9 @@ class Hedge:
         filehedge = self.createHedgeObject('FileHedge')
         filehedge.ensureFile('/hedge/master/etc/netplan/50-cloud-init.yaml', '/etc/netplan/50-cloud-init.yaml')
         
+        self.createHedgeObject("AptHedge").ensurePackages(['net-tools'])
+
+        
     def build_worker1(self, params):
         filehedge = self.createHedgeObject('FileHedge')
         filehedge.ensureFile('/hedge/worker1/etc/netplan/50-cloud-init.yaml', '/etc/netplan/50-cloud-init.yaml')
